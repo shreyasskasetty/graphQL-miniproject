@@ -2,10 +2,15 @@ const express = require('express');
 var { createHandler } = require("graphql-http/lib/use/express");
 var { ruruHTML } = require("ruru/server");
 var schema = require("./schema/schema");
+const cors = require('cors');
 require('dotenv').config();
 const mongoose = require('mongoose');
 
 const app = express();
+
+// allow cross-origin requests
+app.use(cors());  
+
 uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.7d8txtk.mongodb.net/?retryWrites=true&w=majority`
 console.log(uri)
 mongoose.connect(uri);
