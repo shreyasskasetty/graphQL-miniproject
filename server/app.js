@@ -1,8 +1,18 @@
 const express = require('express');
-var { createHandler } = require("graphql-http/lib/use/express")
-var { ruruHTML } = require("ruru/server")
-var schema = require("./schema/schema")
+var { createHandler } = require("graphql-http/lib/use/express");
+var { ruruHTML } = require("ruru/server");
+var schema = require("./schema/schema");
+require('dotenv').config();
+const mongoose = require('mongoose');
+
 const app = express();
+uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.7d8txtk.mongodb.net/?retryWrites=true&w=majority`
+console.log(uri)
+mongoose.connect(uri);
+
+mongoose.connection.once('open', () => {
+    console.log('Connected to database');
+});
 
 var root = {
     hello: () => {
